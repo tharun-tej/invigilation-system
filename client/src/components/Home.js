@@ -12,10 +12,9 @@ const Home = () => {
           Ensure a secure and efficient invigilation process with our system. Manage assignments,
           monitor exams, and streamline your invigilation workflow.
         </p>
-        <ul className="list-disc ml-6 text-gray-600 mb-4">
+        <ul className="ml-6 text-gray-600 mb-4">
           <li>Effortless assignment creation and management.</li>
-          <li>Real-time monitoring of exam sessions.</li>
-          <li>Generate detailed reports for analysis.</li>
+          
         </ul>
         <p className="text-gray-600">
           Get started today and experience a new level of invigilation efficiency.
