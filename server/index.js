@@ -4,12 +4,13 @@ const app=express();
 const cors = require('cors');
 app.use(cors({ origin: true }));
 app.use(express.json());
+const bcrypt = require("bcrypt");
 const mongoose=require("mongoose");
 // const Lists = require("./models/TaskList");
 // const TaskList = require("./models/TaskList");
-// const auth = require("./routes/auth")
+const auth = require("./routes/auth")
 // const List = require("./routes/List")
-// app.use("/api/auth", auth);
+app.use("/api/auth", auth);
 // app.use("/api/lists", List);
 
 const connectDb = async ()=>{
@@ -22,9 +23,9 @@ const connectDb = async ()=>{
         process.exit(1);
     }
 }
-app.get("/api/",(req,res)=>{
-    
-    res.send("<h1>hello</h1>");
+app.get("/api/",async (req,res)=>{
+    const hashedPassword = await bcrypt.hash("exambranchadmin", 10);
+    res.send("<h1>hello</h1>"+hashedPassword);
 })
 
 connectDb().then(()=>{

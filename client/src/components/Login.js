@@ -1,13 +1,26 @@
-// Login.js
-
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
+import { loginRoute } from '../Utils/APIRoutes';
+
+const toastOptions = {
+  position: "bottom-right",
+  autoClose: 8000,
+  pauseOnHover: true,
+  draggable: true,
+  theme: "dark",
+};
 
 const Login = () => {
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
 
+  const navigate = useNavigate();
   const validateEmail = () => {
     // Simple email validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,19 +31,37 @@ const Login = () => {
     }
   };
 
-  const handleLogin = () => {
-    // Validate email before attempting login
+  const handleLogin = async  (e)=>{
+    e.preventDefault();
     validateEmail();
-
-    // Continue with login logic only if email is valid
-    if (!emailError) {
-      // Add your login logic here, e.g., making an API call
-      console.log('Email:', email);
-      console.log('Password:', password);
-      // You can redirect the user or perform other actions based on the login credentials.
-    }
-  };
-
+    if(!emailError){
+      try
+      {
+      let res = await axios.post(loginRoute,{
+          email,
+          password,
+      })
+          res=res.data;
+          if(res.status===true)
+          {
+              const usr = res.user;
+              console.log('setting item');
+              await localStorage.setItem('user',JSON.stringify(usr));
+              console.log('setted item'+localStorage.getItem('user'));
+              toast.info('successfully logged in.........');
+              navigate("/registerExam");
+          }
+          else
+          toast.error(res.message,toastOptions);
+      }
+      catch(error)
+      {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage)
+      }
+    } 
+  }
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -89,6 +120,7 @@ const Login = () => {
           Login
         </button>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

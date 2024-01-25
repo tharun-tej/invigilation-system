@@ -1,43 +1,23 @@
-const mongoose = require("mongoose");
+// models/user.js
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Notification = new mongoose.Schema({
-    description: {
-        type:String,
-        required:true,
-        max:100,
-    },
-    listid : {
-        type:String,
-        max:150,
-    }
-    },
-    { timestamps: true },
-);
+
 const userSchema = new Schema({
-    username:{
-        type:String,
-        required:true,
-        min: 3,
-        max: 20,
-        unique: true,
-    },
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true,
-        max: 50,
+        max: 60,
     },
-    password:{
-        type:String,
-        required:true,
-        min:8,
+    password: {
+        type: String,
+        required: true,
+        min: 8,
     },
-    mylists:{
-        type:Array(mongoose.Types.ObjectId),
+    timetable: {
+        type: Object,
+        required: true,
     },
-    notifications:{
-        type:[Notification],
-    }
+});
 
-})
-module.exports = mongoose.model("Users",userSchema);
+module.exports = mongoose.model('Users', userSchema);
