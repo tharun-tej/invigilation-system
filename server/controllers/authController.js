@@ -4,16 +4,12 @@ const bcrypt = require("bcrypt");
 module.exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
     const user = await User.findOne({ email });
-    console.log(user);
-    if (!user)
-      return res.json({ message: "Incorrect Email or Password", status: false });
+    if (!user) return res.json({ message: "Incorrect Email or Password", status: false });
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid)
-      return res.json({ message: "Incorrect Email or Password", status: false });
-    delete user.password;
-    return res.json({ status: true, user });
+    if (!isPasswordValid) return res.json({ message: "Incorrect Email or Password", status: false });
+    const { password: _, ...userWithoutPassword } = user.toObject();
+    return res.json({ status: true, user: userWithoutPassword });
   } catch (ex) {
     next(ex);
   }

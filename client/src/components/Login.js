@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom'
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { loginRoute } from '../Utils/APIRoutes';
 
 const toastOptions = {
-  position: "bottom-right",
+  position: 'bottom-right',
   autoClose: 8000,
   pauseOnHover: true,
   draggable: true,
-  theme: "dark",
+  theme: 'dark',
 };
 
 const Login = () => {
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   const validateEmail = () => {
-    // Simple email validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError('Please enter a valid email address');
@@ -31,37 +36,32 @@ const Login = () => {
     }
   };
 
-  const handleLogin = async  (e)=>{
+  const handleLogin = async (e) => {
     e.preventDefault();
     validateEmail();
-    if(!emailError){
-      try
-      {
-      let res = await axios.post(loginRoute,{
+    if (!emailError) {
+      try {
+        let res = await axios.post(loginRoute, {
           email,
           password,
-      })
-          res=res.data;
-          if(res.status===true)
-          {
-              const usr = res.user;
-              console.log('setting item');
-              await localStorage.setItem('user',JSON.stringify(usr));
-              console.log('setted item'+localStorage.getItem('user'));
-              toast.info('successfully logged in.........');
-              navigate("/registerExam");
-          }
-          else
-          toast.error(res.message,toastOptions);
+        });
+        res = res.data;
+        if (res.status === true) {
+          const usr = res.user;
+          await localStorage.setItem('user', JSON.stringify(usr));
+          toast.info('Successfully logged in...');
+          navigate('/home');
+        } else {
+          toast.error(res.message, toastOptions);
+        }
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
       }
-      catch(error)
-      {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage)
-      }
-    } 
-  }
+    }
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -75,7 +75,7 @@ const Login = () => {
             Email
           </label>
           <input
-          required
+            required
             type="email"
             id="email"
             className={`w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-blue-500 ${
@@ -120,7 +120,7 @@ const Login = () => {
           Login
         </button>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
