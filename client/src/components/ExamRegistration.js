@@ -5,7 +5,7 @@ const ExamRegistration = () => {
   const [examTimings, setExamTimings] = useState('');
   const [year, setYear] = useState('');
   const [selectedDates, setSelectedDates] = useState([]);
-  const [durations, setDurations] = useState([]);
+  const [Exams, setExams] = useState([]);
 
   const handleChange = (dates) => {
     const updatedSelectedDates = dates.map(date => ({
@@ -17,27 +17,27 @@ const ExamRegistration = () => {
 console.log(selectedDates)
   };
 
-  const handleDurationChange = (e, index) => {
-    const updatedDurations = [...durations];
-    updatedDurations[index] = e.target.value;
-    setDurations(updatedDurations);
+  const handleExamChange = (e, index) => {
+    const updatedExams = [...Exams];
+    updatedExams[index] = e.target.value;
+    setExams(updatedExams);
   };
 
-  const handleAddDuration = () => {
-    setDurations([...durations, '']);
+  const handleAddExam = () => {
+    setExams([...Exams, '']);
   };
 
-  const handleRemoveDuration = (index) => {
-    const updatedDurations = [...durations];
-    updatedDurations.splice(index, 1);
-    setDurations(updatedDurations);
+  const handleRemoveExam = (index) => {
+    const updatedExams = [...Exams];
+    updatedExams.splice(index, 1);
+    setExams(updatedExams);
   };
 
   const handleExamRegistration = () => {
     console.log('Selected Dates:', selectedDates);
     console.log('Exam Timings:', examTimings);
     console.log('Year:', year);
-    console.log('Durations:', durations);
+    console.log('Exams:', Exams);
   };
 
   return (
@@ -57,20 +57,20 @@ console.log(selectedDates)
 
         <div className="mb-6">
           <label htmlFor="examTimings" className="block mb-2 font-semibold text-gray-700">Exam Timings:</label>
-          {durations.map((duration, index) => (
+          {Exams.map((Exam, index) => (
             <div key={index} className="mb-4">
-              <label className="block mb-1 font-semibold text-gray-700">Duration {index + 1}</label>
+              <label className="block mb-1 font-semibold text-gray-700">Exam {index + 1}</label>
               <div className="flex items-center">
                 <input
                   type="text"
                   className="border border-gray-300 rounded-md p-2 flex-grow"
-                  placeholder="Enter duration"
-                  value={duration}
-                  onChange={(e) => handleDurationChange(e, index)}
+                  placeholder="Enter Timings (Ex. 1-3)"
+                  value={Exam}
+                  onChange={(e) => handleExamChange(e, index)}
                 />
                 <button
                   className="ml-2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-                  onClick={() => handleRemoveDuration(index)}
+                  onClick={() => handleRemoveExam(index)}
                 >
                   Remove
                 </button>
@@ -80,9 +80,9 @@ console.log(selectedDates)
 
           <button
             className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-            onClick={handleAddDuration}
+            onClick={handleAddExam}
           >
-            Add Duration
+            Add Exam
           </button>
         </div>
 
@@ -107,7 +107,7 @@ console.log(selectedDates)
           className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-full"
           onClick={handleExamRegistration}
         >
-          Register Exam
+          Assign Invigilators
         </button>
       </div>
     </div>

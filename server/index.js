@@ -9,8 +9,10 @@ const mongoose=require("mongoose");
 // const Lists = require("./models/TaskList");
 // const TaskList = require("./models/TaskList");
 const auth = require("./routes/auth")
+const admin = require("./routes/admin")
 // const List = require("./routes/List")
-app.use("/api/auth", auth);
+app.use("/auth", auth);
+app.use("/admin",admin);
 // app.use("/api/lists", List);
 
 const connectDb = async ()=>{

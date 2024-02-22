@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AddFaculty = () => {
   const [facultyDetails, setFacultyDetails] = useState({
+    salutation: '',
     name: '',
     id: '',
     email: '',
@@ -50,6 +51,7 @@ const AddFaculty = () => {
 
       
       setFacultyDetails({
+        salutation: '',
         name: '',
         id: '',
         email: '',
@@ -75,6 +77,24 @@ const AddFaculty = () => {
       <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">Add Faculty</h1>
       <form onSubmit={handleSubmit}>
+      <div className="mb-4">
+          <label htmlFor="salutation" className="block text-sm font-medium text-gray-700">
+            Salutation
+          </label>
+          <select
+            id="salutation"
+            name="salutation"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            value={facultyDetails.salutation}
+            onChange={handleChange}
+          >
+            <option value="">Select salutation</option>
+            <option value="Mr.">Mr.</option>
+            <option value="Ms.">Ms.</option>
+            <option value="Mrs.">Mrs.</option>
+            <option value="Dr.">Dr.</option>
+          </select>
+        </div>
         <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
@@ -145,7 +165,6 @@ const AddFaculty = () => {
             rows="5"
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
             placeholder="Enter timetable in JSON format"
-            value={JSON.stringify(facultyDetails.timetable, null, 2)}
             onChange={handleTimetableChange}
             />
         </div>
