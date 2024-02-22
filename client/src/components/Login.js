@@ -50,7 +50,7 @@ const Login = () => {
           const usr = res.user;
           await localStorage.setItem('user', JSON.stringify(usr));
           toast.info('Successfully logged in...');
-          navigate('/home');
+          navigate('/');
         } else {
           toast.error(res.message, toastOptions);
         }
