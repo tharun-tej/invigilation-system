@@ -12,10 +12,6 @@ const userSchema = new Schema({
         min:1,
         required: true,
     },
-    salutation: {
-        type: String,
-        required: true,
-    },
     email: {
         type: String,
         required: true,

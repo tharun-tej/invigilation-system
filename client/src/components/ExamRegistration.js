@@ -13,14 +13,21 @@ const ExamRegistration = () => {
       day: date.format('dddd')
     }));
     setSelectedDates(updatedSelectedDates);
-    console.log('invoked :  ')
-console.log(selectedDates)
   };
 
   const handleExamChange = (e, index) => {
-    const updatedExams = [...Exams];
-    updatedExams[index] = e.target.value;
-    setExams(updatedExams);
+    const value = e.target.value;
+    // Check if the entered value matches the format
+    if (/^\d{1}-\d{1}$/.test(value) && value[0] < value[2] && value[0] <= 6 && value[2] <= 6) {
+      const updatedExams = [...Exams];
+      updatedExams[index] = value;
+      setExams(updatedExams);
+    } else {
+      // If validation fails, reset the field to empty
+      const updatedExams = [...Exams];
+      updatedExams[index] = '';
+      setExams(updatedExams);
+    }
   };
 
   const handleAddExam = () => {
@@ -65,7 +72,6 @@ console.log(selectedDates)
                   type="text"
                   className="border border-gray-300 rounded-md p-2 flex-grow"
                   placeholder="Enter Timings (Ex. 1-3)"
-                  value={Exam}
                   onChange={(e) => handleExamChange(e, index)}
                 />
                 <button

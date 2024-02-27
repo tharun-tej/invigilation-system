@@ -165,6 +165,53 @@ const AddFaculty = () => {
             rows="5"
             className="mt-1 p-2 border border-gray-300 rounded-md w-full"
             placeholder="Enter timetable in JSON format"
+            defaultValue='{
+              "years":[],
+              "schedule":[
+                  [{"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""}
+                  ],
+                  [{"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""}
+                  ],
+                  [{"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""}
+                  ],
+                  [{"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""}
+                  ],
+                  [{"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""}
+                  ],
+                  [{"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""},
+                  {"branch":"","year":""}
+                  ],
+              ]
+          }'
             onChange={handleTimetableChange}
             />
         </div>
