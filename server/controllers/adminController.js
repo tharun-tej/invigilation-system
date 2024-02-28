@@ -25,4 +25,16 @@ const addFaculty = async (req, res) => {
     }
 };
 
-module.exports = { addFaculty };
+const getFaultyDetails = async (req, res) => {
+    try {
+        // Fetch faculty details from the database
+        const facultyDetails = await User.find({ salutation: { $exists: true } }, { _id: 0, __v: 0 });
+
+        res.status(200).json({ message: 'Faculty details fetched successfully', details: facultyDetails });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+module.exports = { addFaculty, getFaultyDetails };

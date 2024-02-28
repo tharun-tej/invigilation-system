@@ -1,12 +1,11 @@
 import React from 'react'
-import axios from 'axios'
-export default function FacultyAssigned = (props)=>{
-    const assign = ()=>{
-        const 
-    }
-    return (
-        <>
 
-        </>
-    )
+function FacultyAssigned() {
+  return (
+    <div>
+      FacultyAssigned
+    </div>
+  )
 }
+
+export default FacultyAssigned

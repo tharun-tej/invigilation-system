@@ -32,6 +32,11 @@ const Home = () => {
                 Assign Invigilators
               </button>
             </Link>
+            <Link to="/facultyDetails">
+              <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none mt-4">
+                Faculty Details
+              </button>
+            </Link>
           </>
         ) : (
           <Link to="/login">
