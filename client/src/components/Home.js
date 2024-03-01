@@ -12,7 +12,7 @@ const Home = () => {
           Ensure a secure and efficient invigilation process with our system. Manage assignments,
           monitor exams, and streamline your invigilation workflow.
         </p>
-        <ul className="ml-6 text-gray-600 mb-4">
+        <ul className="text-left text-gray-600 mb-4 ml-4">
           <li>Effortless assignment creation and management.</li>
           
         </ul>
@@ -22,18 +22,23 @@ const Home = () => {
 
         {isLoggedIn ? (
           <>
+            <Link to="/CollegeDetails">
+              <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none mt-4 mr-2">
+                College Details
+              </button>
+            </Link>
             <Link to="/add-faculty">
               <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none mt-4 mr-2">
                 Add Faculty
               </button>
             </Link>
             <Link to="/registerExam">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none mt-4">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none mt-4 mr-2">
                 Assign Invigilators
               </button>
             </Link>
             <Link to="/facultyDetails">
-              <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none mt-4">
+              <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none mt-4 mr-2">
                 Faculty Details
               </button>
             </Link>

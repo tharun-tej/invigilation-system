@@ -6,14 +6,14 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 const bcrypt = require("bcrypt");
 const mongoose=require("mongoose");
-// const Lists = require("./models/TaskList");
-// const TaskList = require("./models/TaskList");
+
 const auth = require("./routes/auth")
 const admin = require("./routes/admin")
-// const List = require("./routes/List")
+var ExamDetails = {}
+
 app.use("/auth", auth);
 app.use("/admin",admin);
-// app.use("/api/lists", List);
+
 
 const connectDb = async ()=>{
     try{
@@ -28,6 +28,14 @@ const connectDb = async ()=>{
 app.get("/api/",async (req,res)=>{
     const hashedPassword = await bcrypt.hash("exambranchadmin", 10);
     res.send("<h1>hello</h1>"+hashedPassword);
+})
+
+app.post('/postExamDetails', async (req,res)=>{
+    ExamDetails = req.body;
+    res.status(200).json({message : 'Details collected successfully'});
+})
+app.get('/getExamDetails', async (req,res)=>{
+    res.status(200).json(ExamDetails);
 })
 
 connectDb().then(()=>{
