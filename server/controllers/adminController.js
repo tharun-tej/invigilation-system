@@ -1,7 +1,7 @@
 // controllers/adminController.js
 const User = require('../models/User');
 const CollegeDetails = require('../models/CollegeDetails');
-
+const Assignment = require('../models/Assignment');
 
 const addFaculty = async (req, res) => {
     try {
@@ -75,11 +75,36 @@ const getCollegeDetails = async (req, res) => {
 
 const getCFacultyDetails = async (req, res) => {
     try {
-        const facultyDetails = await User.find({}, { _id: 0, email: 1, name: 1,timetable: 1,salutation : 1 }); // Fetching only email and name
+        const facultyDetails = await User.find({ salutation: { $exists: true } }, { _id: 0, email: 1, name: 1,timetable: 1,salutation : 1 }); // Fetching only email and name
         res.status(200).json({ facultyDetails });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-module.exports = { addFaculty, getFacultyDetails, getCollegeDetails, getCFacultyDetails, addOrUpdateCollegeDetails };
+
+const postAssignment = async (req, res) => {
+    try {
+        const newAssignment = new Assignment({
+            details:req.body
+        });
+
+        // Save the user to the database
+        await newAssignment.save();
+
+        res.status(200).json({ message: 'Assignment added successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+const getAssignmentDetails = async (req, res) => {
+    try {
+        const assignmentDetails = await Assignment.findOne(); 
+        res.status(200).json(assignmentDetails.details);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+module.exports = { addFaculty, getFacultyDetails,getAssignmentDetails,postAssignment, getCollegeDetails, getCFacultyDetails, addOrUpdateCollegeDetails };

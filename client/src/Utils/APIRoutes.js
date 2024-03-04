@@ -9,3 +9,5 @@ export const getCFacultyDetailsRoute = `${host}/admin/getCFacultyDetails`
 export const getCollegeDetailsRoute = `${host}/admin/getCollegeDetails`
 export const getExamDetailsRoute = `${host}/getExamDetails`
 export const postExamDetailsRoute = `${host}/postExamDetails`
+export const postAssignmentDetailsRoute = `${host}/admin/postAssignment`
+export const getAssignmentDetailsRoute = `${host}/admin/getAssignmentDetails`
