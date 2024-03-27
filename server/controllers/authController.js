@@ -6,7 +6,7 @@ module.exports.login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) return res.json({ message: "Incorrect Email or Password", status: false });
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = password === user.password;
     if (!isPasswordValid) return res.json({ message: "Incorrect Email or Password", status: false });
     const { password: _, ...userWithoutPassword } = user.toObject();
     return res.json({ status: true, user: userWithoutPassword });
